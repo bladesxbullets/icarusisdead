@@ -1,8 +1,7 @@
+// Initialize Supabase Client
 const SUPABASE_URL = "https://ycughbhwjsktigcjuexb.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljdWdoYmh3anNrdGlnY2p1ZXhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkwMDg2OTcsImV4cCI6MjA1NDU4NDY5N30.4-llQURzUX1uUp0dplmfIKxS9xYSqrS9KpEdpr8Ie7k";
-
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function addPost() {
     let postInput = document.getElementById("postInput");
