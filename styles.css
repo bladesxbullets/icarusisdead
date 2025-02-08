@@ -1,44 +1,75 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Inter', sans-serif;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
     text-align: center;
+    margin: 0;
+    padding: 20px;
 }
 
+/* Main Container */
 .container {
     width: 50%;
     margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px gray;
+    background: #2c2c2c;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Inputs & Textarea */
 textarea, input {
     width: 100%;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 16px;
 }
 
+/* Button Styling */
 button {
-    padding: 10px 20px;
-    background-color: blue;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #0077ff, #0044aa);
     color: white;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
+button:hover {
+    background: linear-gradient(135deg, #0044aa, #002266);
+}
+
+/* Posts Section */
 #posts {
     margin-top: 20px;
 }
 
+/* Individual Post */
 .post {
-    background: #ddd;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
+    background: #252525;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
     text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Media in Posts */
 .post img, .post video {
     max-width: 100%;
     margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Post Text */
+.post p {
+    font-size: 16px;
+    line-height: 1.5;
 }
