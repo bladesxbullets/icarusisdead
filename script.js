@@ -23,14 +23,59 @@ async function addPost() {
 
     let newPost = document.createElement("div");
     newPost.className = "post";
-    newPost.innerHTML = `<p>${postContent}</p>` + (fileUrl ? generateMediaHTML(fileUrl, file.type) : "");
+    let postId = Date.now(); // Unique ID for each post
+    newPost.setAttribute("data-id", postId);
+
+    newPost.innerHTML = `
+        <p>${postContent}</p>
+        ${fileUrl ? generateMediaHTML(fileUrl, file.type) : ""}
+        <button class="delete-btn" onclick="deletePost(${postId})">Delete</button>
+    `;
     
     postsDiv.prepend(newPost);
-    savePost(postContent, fileUrl, file?.type);
+    savePost(postId, postContent, fileUrl, file?.type);
 
     postInput.value = "";
     fileInput.value = "";
 }
+
+function savePost(postId, content, fileUrl, fileType) {
+    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    posts.unshift({ postId, content, fileUrl, fileType });
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+function loadPosts() {
+    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    let postsDiv = document.getElementById("posts");
+
+    postsDiv.innerHTML = ""; // Clear existing posts before reloading
+
+    posts.forEach(({ postId, content, fileUrl, fileType }) => {
+        let newPost = document.createElement("div");
+        newPost.className = "post";
+        newPost.setAttribute("data-id", postId);
+
+        newPost.innerHTML = `
+            <p>${content}</p>
+            ${fileUrl ? generateMediaHTML(fileUrl, fileType) : ""}
+            <button class="delete-btn" onclick="deletePost(${postId})">Delete</button>
+        `;
+        postsDiv.appendChild(newPost);
+    });
+}
+
+function deletePost(postId) {
+    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    posts = posts.filter(post => post.postId !== postId);
+    localStorage.setItem("posts", JSON.stringify(posts));
+
+    loadPosts(); // Refresh posts after deletion
+}
+
+window.onload = loadPosts;
+
+// made changes till here
 
 async function uploadFile(file) {
     let fileName = Date.now() + "-" + file.name;
@@ -59,17 +104,3 @@ function savePost(content, fileUrl, fileType) {
     posts.unshift({ content, fileUrl, fileType });
     localStorage.setItem("posts", JSON.stringify(posts));
 }
-
-function loadPosts() {
-    let posts = JSON.parse(localStorage.getItem("posts")) || [];
-    let postsDiv = document.getElementById("posts");
-
-    posts.forEach(({ content, fileUrl, fileType }) => {
-        let newPost = document.createElement("div");
-        newPost.className = "post";
-        newPost.innerHTML = `<p>${content}</p>` + (fileUrl ? generateMediaHTML(fileUrl, fileType) : "");
-        postsDiv.appendChild(newPost);
-    });
-}
-
-window.onload = loadPosts;
